@@ -16,4 +16,4 @@
 
 ## SWAGGER
 
-## MOODBOARD
+## MoodBoard
