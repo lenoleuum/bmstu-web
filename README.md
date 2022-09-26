@@ -16,6 +16,8 @@
 
 ## ER-диаграмма сущностей
 
+<img width="496" alt="image" src="https://user-images.githubusercontent.com/76661573/192372405-ce0e9b52-718b-4f7e-aceb-164720729755.png">
+
 ## SWAGGER
 
 ## MoodBoard
