@@ -12,6 +12,8 @@
 
 ## USE-CASE диаграмма
 
+<img width="419" alt="image" src="https://user-images.githubusercontent.com/76661573/192364543-81bbd9c8-8336-4297-8df0-01e3a9f9c015.png">
+
 ## ER-диаграмма сущностей
 
 ## SWAGGER
