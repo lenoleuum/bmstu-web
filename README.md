@@ -25,8 +25,8 @@
 
 <img width="931" alt="image" src="https://user-images.githubusercontent.com/76661573/193423922-b76e82f3-6394-4404-8ecf-41499b4d80c3.png">
 
-## SWAGGER
+## Swagger
+[Click here](https://app.swaggerhub.com/apis/lenoleuum/MBTIdeal/1.0.0)
 
-https://app.swaggerhub.com/apis/lenoleuum/MBTIdeal/1.0.0
 
 ## MoodBoard
