@@ -21,6 +21,10 @@
 
 <img width="496" alt="image" src="https://user-images.githubusercontent.com/76661573/192372405-ce0e9b52-718b-4f7e-aceb-164720729755.png">
 
+## Экраны будущего приложения
+
+<img width="931" alt="image" src="https://user-images.githubusercontent.com/76661573/193423922-b76e82f3-6394-4404-8ecf-41499b4d80c3.png">
+
 ## SWAGGER
 
 ## MoodBoard
