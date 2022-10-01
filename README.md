@@ -27,4 +27,6 @@
 
 ## SWAGGER
 
+https://app.swaggerhub.com/apis/lenoleuum/MBTIdeal/1.0.0
+
 ## MoodBoard
