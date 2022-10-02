@@ -23,7 +23,7 @@
 
 ## Экраны будущего приложения
 
-<img width="931" alt="image" src="https://user-images.githubusercontent.com/76661573/193423922-b76e82f3-6394-4404-8ecf-41499b4d80c3.png">
+<img width="580" alt="image" src="https://user-images.githubusercontent.com/76661573/193444558-c53d1081-1832-4eda-aa4e-4124a4c8e823.png">
 
 ## Swagger
 [Click here](https://app.swaggerhub.com/apis/lenoleuum/MBTIdeal/1.0.0)
