@@ -30,3 +30,4 @@
 
 
 ## MoodBoard
+[Click here](https://vk.com/away.php?utf=1&to=https%3A%2F%2Fpin.it%2F4lETCrI)
