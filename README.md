@@ -24,7 +24,7 @@
 
 ## Экраны будущего приложения
 
-<img width="580" alt="image" src="https://user-images.githubusercontent.com/76661573/193444558-c53d1081-1832-4eda-aa4e-4124a4c8e823.png">
+<img width="592" alt="image" src="https://user-images.githubusercontent.com/76661573/196055436-f6c498ab-6fe0-4b88-bd3c-c8d39aa19bce.png">
 
 
 ## Swagger
