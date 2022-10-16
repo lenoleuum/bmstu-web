@@ -1,4 +1,7 @@
-﻿namespace mbti_web.Models.Repository
+﻿using mbti_web.Entities;
+using Type = mbti_web.Entities.Type;
+
+namespace mbti_web.Repository
 {
 
     public class RepositoryType : IRepositoryType

@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using mbti_web.Models;
-using mbti_web.Models.Repository;
+using mbti_web.Repository;
+using mbti_web.Entities;
+using mbti_web.Services;
 
-using Type = mbti_web.Models.Type;
+using Type = mbti_web.Entities.Type;
 
 namespace mbti_web.Controllers
 {
@@ -16,25 +18,25 @@ namespace mbti_web.Controllers
     [ApiController]
     public class TypesController : ControllerBase
     {
-        private IRepositoryType _reptype;
+        private readonly ITypeService _typeService;
 
-        public TypesController(IRepositoryType reptype)
+        public TypesController(ITypeService typeService)
         {
-            _reptype = reptype;
+            _typeService = typeService;
         }
 
         // GET: api/Types
         [HttpGet]
         public IEnumerable<Type> GetTypes()
         {
-            return _reptype.GetAll(); // return 200 (OK)
+            return _typeService.GetAllTypes(); // return 200 (OK)
         }
 
         // GET: api/Types/5
         [HttpGet("{id}")]
         public IActionResult GetTypeByID(int id)
         {
-            var t = _reptype.Find(id);
+            var t = _typeService.GetTypeByID(id);
 
             if (t == null)
             {
@@ -46,21 +48,21 @@ namespace mbti_web.Controllers
 
         // PATCH: api/Types/5
         [HttpPatch("{id}")]
-        public IActionResult UpdateTypeDesc([FromBody] Type type, int id)
+        public IActionResult UpdateTypeDesc([FromBody] TypeModel typeModel, int id)
         {
-            if (type ==  null)
+            if (typeModel ==  null)
             {
                 return BadRequest();
             }
 
-            var t = _reptype.Find(id);
+            var t = _typeService.GetTypeByID(id);
 
             if (t == null)
             {
                 return NotFound();
             }
 
-            _reptype.Update(t);
+            _typeService.UpdateDesc(typeModel);
 
             return NoContent();  //return 204(NO CONTENT)
         }

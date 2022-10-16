@@ -6,9 +6,12 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using mbti_web.Models;
+using mbti_web.Repository;
 using System.Collections.Generic;
 using System.Security.Principal;
 using System.Text;
+using mbti_web.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace mbti_web.Controllers
 {
@@ -16,72 +19,62 @@ namespace mbti_web.Controllers
     [ApiController]
     public class AuthController : Controller
     {
-        private readonly mbti_dbContext _context;
-
-        public AuthController(mbti_dbContext context)
+        private readonly IRepositoryUser _repuser;
+        public AuthController(IRepositoryUser repuser)
         {
-            _context = context;
-        }
-        [HttpGet("/auth")]
-        public IActionResult Authorize()
-        {
-            // на стороне клиента нужно получить данные из формы (логин/пароль),
-            // отправить запрос POST /auth?username=lgin&password=password
-            // и получить ответ: если true, то все ок, авторизация успешна,
-            // если нет, то sorry
-
-            return null;
+            _repuser = repuser;
         }
 
-        [HttpPost("/auth")]
-        public IActionResult Token(string username, string password)
+        private string GenerateJwtToken(string Login)
         {
-            var identity = GetIdentity(username, password);
-            if (identity == null)
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            var tokenDescriptor = new SecurityTokenDescriptor
             {
-                return BadRequest(new { errorText = "Invalid username or password." });
-            }
-
-            var now = DateTime.UtcNow;
-
-            // создаем JWT-токена
-            var jwt = new JwtSecurityToken(
-                    issuer: AuthOptions.ISSUER,
-                    audience: AuthOptions.AUDIENCE,
-                    notBefore: now,
-                    claims: identity.Claims,
-                    expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
-                    signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
-            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-
-            var response = new
-            {
-                access_token = encodedJwt,
-                username = identity.Name
+                Subject = new ClaimsIdentity(new[] { new Claim("id", Login) }),
+                Expires = DateTime.UtcNow.AddHours(1),
+                Issuer = AuthOptions.ISSUER,
+                Audience = AuthOptions.AUDIENCE,
+                SigningCredentials = new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256Signature)
             };
 
-            return Json(response);
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+
+            return tokenHandler.WriteToken(token);
         }
 
-        private ClaimsIdentity GetIdentity(string login, string password)
+        [AllowAnonymous]
+        [HttpPost(nameof(Authorize))]
+        public IActionResult Authorize([FromBody] LoginUser user)
         {
-            var result = _context.Users.Where(x => x.Login == login && x.Password == password);
-            User u = result.FirstOrDefault();
+            if (CheckValidity(user))
+            {
+                var tokenString = GenerateJwtToken(user.Login);
+
+                return Ok(new { Token = tokenString, Message = "Success!" });
+            }
+            else
+                return BadRequest("Please pass the valid Login and Password!");
+        }
+
+        [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
+        [HttpGet(nameof(GetResult))]
+        public IActionResult GetResult()
+        {
+            return Ok("Token Validated!");
+        }
+
+        [NonAction]
+        public bool CheckValidity(LoginUser user)
+        {
+            List<User> users = _repuser.GetAll().ToList();
+
+            User u = users.Find(u => u.Login == user.Login && u.Password == user.Password);
 
             if (u != null)
-            {
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, u.Login)
-                };
-                ClaimsIdentity claimsIdentity =
-                new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
-                    ClaimsIdentity.DefaultRoleClaimType);
-                return claimsIdentity;
-            }
-
-            // пользователя нет в базе
-            return null;
+                return true;
+            else
+                return false;
         }
     }
 }

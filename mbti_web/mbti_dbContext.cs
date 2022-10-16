@@ -1,10 +1,12 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using mbti_web.Entities;
+using Type = mbti_web.Entities.Type;
 
 #nullable disable
 
-namespace mbti_web.Models
+namespace mbti_web
 {
     public partial class mbti_dbContext : DbContext
     {

@@ -6,7 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using mbti_web.Models;
-using mbti_web.Models.Repository;
+using mbti_web.Services;
+using mbti_web.Entities;
 
 namespace mbti_web.Controllers
 {
@@ -14,25 +15,41 @@ namespace mbti_web.Controllers
     [ApiController]
     public class CharactersController : ControllerBase
     {
-        private IRepositoryCharacter _repchar;
+        private ICharacterService _charService;
 
-        public CharactersController(IRepositoryCharacter repchar)
+        public CharactersController(ICharacterService charService)
         {
-            _repchar = repchar;
+            _charService = charService;
         }
 
-        // GET: api/Characters
+        // GET: api/Characters or api/Characters?typeuk=5
         [HttpGet]
-        public IEnumerable<Character> GetCharacters()
+        public IEnumerable<Character> GetCharacters(int typeuk = -1)
         {
-            return _repchar.GetAll(); // return 200 (OK)
+            if (typeuk == -1)
+                return _charService.GetAllCharacters(); // return 200 (OK)
+            else
+            {
+                List<Character> chars = _charService.GetAllCharacters().ToList();
+                List<Character> result = new List<Character>();
+
+                foreach (Character c in chars)
+                {
+                    if (c.Typeuk == typeuk)
+                    {
+                        result.Add(c);
+                    }
+                }
+
+                return result;  // return 200 (OK)
+            }
         }
 
         // GET: api/Characters/5
         [HttpGet("{id}")]
         public IActionResult GetCharacterByID(int id)
         {
-            var c = _repchar.Find(id);
+            var c = _charService.GetCharacterByID(id);
 
             if (c == null)
             {
@@ -44,37 +61,37 @@ namespace mbti_web.Controllers
 
         // POST: api/Characters
         [HttpPost]
-        public IActionResult AddCharacter([FromBody] Character character)
+        public IActionResult AddCharacter([FromBody] CharacterModel characterModel)
         {
-            if (character == null)
+            if (characterModel == null)
             {
                 return BadRequest();
             }
 
-            _repchar.Add(character);
+            _charService.AddCharacter(characterModel);
 
-            return CreatedAtAction(nameof(GetCharacterByID), new { id = character.Characteruk }, character); // return 201 (CREATED) 
+            return CreatedAtAction(nameof(GetCharacterByID), new { id = characterModel.ID }, characterModel); // return 201 (CREATED) 
         }
 
         // PATCH: api/Characters/5
         [HttpPatch("{id}")]
-        public IActionResult UpdateCharacterType([FromBody] Character character, int id)
+        public IActionResult UpdateCharacterType([FromBody] CharacterModel characterModel, int id)
         {
-            if (character == null)
+            if (characterModel == null)
             {
                 return BadRequest();
             }
 
-            var c = _repchar.Find(id);
+            var c = _charService.GetCharacterByID(id);
 
             if (c == null)
             {
                 return NotFound();
             }
 
-            _repchar.Update(character);
+            _charService.UpdateType(characterModel);
 
-            return NoContent();  //return 204(NO CONTENT)
+            return NoContent();  //return 204 (NO CONTENT)
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace mbti_web.Models
+namespace mbti_web.Entities
 {
     public partial class Type
     {

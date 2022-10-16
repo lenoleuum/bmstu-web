@@ -1,4 +1,6 @@
-﻿namespace mbti_web.Models.Repository
+﻿using mbti_web.Entities;
+
+namespace mbti_web.Repository
 {
     public interface IRepositoryUser
     {

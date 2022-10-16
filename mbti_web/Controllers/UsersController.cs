@@ -4,9 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using mbti_web.Models;
-using mbti_web.Models.Repository;
+using mbti_web.Entities;
+using Microsoft.AspNetCore.Authorization;
+using mbti_web.Services;
 
 namespace mbti_web.Controllers
 {
@@ -14,25 +17,54 @@ namespace mbti_web.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly IRepositoryUser _repuser;
+        private readonly IUserService _userService;
 
-        public UsersController(IRepositoryUser repuser)
+        public UsersController(IUserService userService)
         {
-            _repuser = repuser;
+            _userService = userService;
+        }
+
+        // POST: api/users/authenticate
+        [HttpPost("authenticate")]
+        public IActionResult Authenticate(AuthenticateRequest model)
+        {
+            var response = _userService.Authenticate(model);
+
+            if (response == null)
+                return BadRequest(new { message = "Error! Username or password is incorrect!" });
+
+            return Ok(response);
+        }
+
+        // POST: api/users/register
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] UserModel userModel)
+        {
+            var response = _userService.Register(userModel); //await 
+
+            if (response == null)
+            {
+                return BadRequest(new { message = "Error! Didn't register!" });
+            }
+
+            return Ok(response);
         }
 
         // GET: api/Users
+        [Authorize]
         [HttpGet]
-        public IEnumerable<User> GetUsers()
+        public IActionResult GetUsers()
         {
-            return _repuser.GetAll(); // return 200 (OK)
+            var users = _userService.GetAll(); 
+            return Ok(users); // return 200 (OK)
         }
-
+        
         // GET: api/Users/5
+        [Authorize]
         [HttpGet("{id}")]
         public IActionResult GetUserByID(int id)
         {
-            var u = _repuser.Find(id);
+            User u = _userService.GetById(id);
 
             if (u == null)
             {
@@ -43,142 +75,57 @@ namespace mbti_web.Controllers
         }
 
         // POST: api/Users
+        [Authorize]
         [HttpPost]
-        public IActionResult AddUser([FromBody] User user)
+        public IActionResult AddUser([FromBody] UserModel userModel)
         {
-            if (user == null)
+            if (userModel == null)
             {
                 return BadRequest();
             }
 
-            _repuser.Add(user);
+            _userService.AddUser(userModel);
 
-            return CreatedAtAction(nameof(GetUserByID), new { id = user.Useruk }, user); // return 201 (CREATED)
+            return CreatedAtAction(nameof(GetUserByID), new { id = userModel.ID }, userModel); // return 201 (CREATED)
         }
 
         // PATCH: api/Users/5
+        [Authorize]
         [HttpPatch("{id}")]
-        public IActionResult UpdateUserTelegram([FromBody] User user, int id) 
+        public IActionResult UpdateUserTelegram([FromBody] UserModel userModel, int id) 
         {
-            if (user == null)
+            if (userModel == null)
             {
                 return BadRequest();
             }
 
-            var u = _repuser.Find(id);
+            var u = _userService.GetById(id);
 
             if (u == null)
             {
                 return NotFound();
             }
 
-            _repuser.Update(user);
+            _userService.UpdateUser(userModel);
 
             return NoContent();  //return 204(NO CONTENT)
         }
 
         // DELETE: api/Users/5
+        [Authorize]
         [HttpDelete("{id}")]
         public IActionResult DeleteUser(int id)
         {
-            var u = _repuser.Find(id);
+            var u = _userService.GetById(id);
 
             if (u == null)
             {
                 return NotFound();
             }
 
-            _repuser.Remove(u);
+            _userService.DeleteUser(u);
 
             return NoContent();  //return 204(NO CONTENT)
         }
-
-        /*
-        private readonly mbti_dbContext _context;
-        //private readonly RepositoryUser _repuser;
-
-        public UsersController(mbti_dbContext context)
-        {
-            //_repuser = repuser;
-            _context = context;
-        }
-
-        // GET: api/Users
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
-        {
-            return await _context.Users.ToListAsync();
-        }
-
-        // GET: api/Users/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
-        {
-            
-            var user = await _context.Users.FindAsync(id);
-
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            return user;
-        }
-
-        // POST: api/Users
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
-        {
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetUser", new { id = user.Useruk }, user);
-        }
-
-        // PATCH: api/Users/5
-        [HttpPatch("{id}")]
-        public async Task<ActionResult<User>> PatchUser(User user, int id)
-        {
-            if (user == null)
-            {
-                return BadRequest();
-            }
-
-            var u = _context.Users.Find(id);
-
-            if (u == null)
-            {
-                return NotFound();
-            }
-
-            u.Telagram = user.Telagram;
-            u.Email = user.Email;
-
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        // DELETE: api/Users/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
-        {
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool UserExists(int id)
-        {
-            return _context.Users.Any(e => e.Useruk == id);
-        }*/
     }
 }
