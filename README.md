@@ -16,7 +16,7 @@
 
 ## USE-CASE диаграмма
 
-<img width="419" alt="image" src="https://user-images.githubusercontent.com/76661573/192364543-81bbd9c8-8336-4297-8df0-01e3a9f9c015.png">
+<img width="383" alt="image" src="https://user-images.githubusercontent.com/76661573/196056966-c22f0ad5-2aef-405b-8ca4-612f65343fa3.png">
 
 ## ER-диаграмма сущностей
 
