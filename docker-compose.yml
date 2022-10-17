@@ -1,0 +1,23 @@
+version: "3.1"
+services:
+  postgres:
+    container_name: mbti-db
+    image: postgres:12.8
+    environment:
+      POSTGRES_DB: "mbti_db"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "1234"
+    volumes:
+      - ~/db/data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    
+  pgadmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "gusjushka@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "1234
+    ports:
+      - "5050:80"
