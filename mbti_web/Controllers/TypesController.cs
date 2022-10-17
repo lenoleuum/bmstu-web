@@ -11,6 +11,7 @@ using mbti_web.Entities;
 using mbti_web.Services;
 
 using Type = mbti_web.Entities.Type;
+using mbti_web.Middleware;
 
 namespace mbti_web.Controllers
 {
@@ -26,6 +27,7 @@ namespace mbti_web.Controllers
         }
 
         // GET: api/Types
+        [Authorize]
         [HttpGet]
         public IEnumerable<Type> GetTypes()
         {
@@ -33,6 +35,7 @@ namespace mbti_web.Controllers
         }
 
         // GET: api/Types/5
+        [Authorize]
         [HttpGet("{id}")]
         public IActionResult GetTypeByID(int id)
         {
@@ -47,6 +50,7 @@ namespace mbti_web.Controllers
         }
 
         // PATCH: api/Types/5
+        [Authorize]
         [HttpPatch("{id}")]
         public IActionResult UpdateTypeDesc([FromBody] TypeModel typeModel, int id)
         {

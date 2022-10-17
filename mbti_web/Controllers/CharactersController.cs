@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using mbti_web.Models;
 using mbti_web.Services;
 using mbti_web.Entities;
+using mbti_web.Middleware;
 
 namespace mbti_web.Controllers
 {
@@ -23,6 +24,7 @@ namespace mbti_web.Controllers
         }
 
         // GET: api/Characters or api/Characters?typeuk=5
+        [Authorize]
         [HttpGet]
         public IEnumerable<Character> GetCharacters(int typeuk = -1)
         {
@@ -46,6 +48,7 @@ namespace mbti_web.Controllers
         }
 
         // GET: api/Characters/5
+        [Authorize]
         [HttpGet("{id}")]
         public IActionResult GetCharacterByID(int id)
         {
@@ -60,6 +63,7 @@ namespace mbti_web.Controllers
         }
 
         // POST: api/Characters
+        [Authorize]
         [HttpPost]
         public IActionResult AddCharacter([FromBody] CharacterModel characterModel)
         {
@@ -74,6 +78,7 @@ namespace mbti_web.Controllers
         }
 
         // PATCH: api/Characters/5
+        [Authorize]
         [HttpPatch("{id}")]
         public IActionResult UpdateCharacterType([FromBody] CharacterModel characterModel, int id)
         {

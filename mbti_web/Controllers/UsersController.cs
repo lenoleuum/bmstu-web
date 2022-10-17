@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using mbti_web.Models;
 using mbti_web.Entities;
-using Microsoft.AspNetCore.Authorization;
+using mbti_web.Middleware;
 using mbti_web.Services;
 
 namespace mbti_web.Controllers
