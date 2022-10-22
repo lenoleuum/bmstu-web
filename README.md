@@ -28,7 +28,7 @@
 
 
 ## Swagger
-[Click here](https://app.swaggerhub.com/apis/lenoleuum/MBTI/1.0.0)
+[Click here](https://app.swaggerhub.com/apis/lenoleuum/MBTI/2.0)
 
 
 ## MoodBoard
