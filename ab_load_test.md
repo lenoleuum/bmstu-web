@@ -1,9 +1,11 @@
-## Нагрузочное тестирование с использованием ApacheBenchmark
+# Нагрузочное тестирование с использованием ApacheBenchmark
 
-# Без балансировки
+## Без балансировки
 
+```
 ab -n 100000 -c 100 http://localhost/api/v1/users
-
+```
+```
 This is ApacheBench, Version 2.3 <$Revision: 1901567 $>
 Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
 Licensed to The Apache Software Foundation, http://www.apache.org/
@@ -58,11 +60,15 @@ Percentage of the requests served within a certain time (ms)
   98%    459
   99%    491
  100%   1209 (longest request)
+ ```
  
+ ## С балансировкой (3 бэкенда в соотношении 2:1:1 первый бэкенд - основной)
  
- # С балансировкой (3 бэкенда в соотношении 2:1:1 первый бэкенд - основной)
- 
- This is ApacheBench, Version 2.3 <$Revision: 1901567 $>
+```
+ab -n 100000 -c 100 http://localhost/api/v1/users
+``` 
+```
+This is ApacheBench, Version 2.3 <$Revision: 1901567 $>
 Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
 Licensed to The Apache Software Foundation, http://www.apache.org/
 
@@ -116,9 +122,9 @@ Percentage of the requests served within a certain time (ms)
   98%    734
   99%    768
  100%   1101 (longest request)
+ ```
  
- 
- # Вывод
+ ## Вывод
  
  При увеличении количества конкурирующих запросов к серверу ухудшаются результаты тестирования.
 
