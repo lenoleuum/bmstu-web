@@ -36,4 +36,4 @@
 
 
 ## Figma
-[Click here]([https://www.figma.com/file/DGEgnA22vOR1XgkMBU9P7b/Untitled?node-id=4%3A2](https://www.figma.com/file/DGEgnA22vOR1XgkMBU9P7b/mbtiworld?node-id=0%3A1))
+[Click here](https://www.figma.com/file/DGEgnA22vOR1XgkMBU9P7b/mbtiworld?node-id=0%3A1)
