@@ -23,12 +23,16 @@ jobs:
       with:
         dotnet-version: 6.0.x
     
-    - name: Restore dependencies
+    - name: Restore dependencies UnitTests
       run: dotnet restore
-      working-directory: mbti_web
+      working-directory: UnitTests
     
-    - name: Build
+    - name: Build UnitTests
       run: dotnet build --no-restore
+      working-directory: UnitTests
+      
+    - name: Unit Tests
+      run: dotnet test UnitTests --no-build --verbosity normal
       working-directory: mbti_web
     
     
