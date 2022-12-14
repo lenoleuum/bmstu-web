@@ -25,10 +25,13 @@ jobs:
               
     - name: Install dependencies
       run: dotnet restore
+      working-directory: mbti_web
     - name: Build
       run: dotnet build
+      working-directory: mbti_web
     - name: Test
       run: dotnet test 
+      working-directory: mbti_web
   
     
     
