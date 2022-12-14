@@ -22,8 +22,8 @@ namespace UnitTests.BLUnitTests
     [AllureSuite("TypeServiceSuite")]
     public class TypeServiceTest
     {
-        [AllureXunitTheory]
-        [AutoMoqData]
+        //[AllureXunitTheory]
+        //[AutoMoqData]
         public void TestGetById(int _id)
         {
             // Arrange
@@ -63,8 +63,8 @@ namespace UnitTests.BLUnitTests
             Assert.Null(typeList);
         }
 
-        [AllureXunitTheory]
-        [AutoMoqData]
+        //[AllureXunitTheory]
+        //[AutoMoqData]
         public void TestGetTypeByName(string _name)
         {
             // Arrange
