@@ -32,7 +32,7 @@ jobs:
       working-directory: UnitTests
       
     - name: Unit Tests
-      run: dotnet test UnitTests --no-build --verbosity normal
-      working-directory: mbti_web
+      run: dotnet test UnitTests
+      working-directory: UnitTests
     
     
