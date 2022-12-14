@@ -30,8 +30,7 @@ jobs:
       run: dotnet build
       working-directory: mbti_web
     - name: Test
-      run: dotnet test 
-      working-directory: mbti_web
+      run: dotnet test UnitTests
   
     
     
