@@ -13,6 +13,13 @@ namespace mbti_web.Entities
             //Users = new HashSet<User>();
         }
 
+        public Type(int _typeUk, string _typeName, string _typeDescription)
+        {
+            Typeuk = _typeUk;
+            Typename = _typeName;
+            Typedescription = _typeDescription;
+        }
+
         public int Typeuk { get; set; }
         public string Typename { get; set; }
         public string Typedescription { get; set; }
