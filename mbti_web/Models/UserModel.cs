@@ -12,7 +12,7 @@ namespace mbti_web.Models
         public string Nickname { get; set; }
         public string Email { get; set; }
         public string Telagram { get; set; }
-        public int Typeuk { get; set; }
+        public string Typeuk { get; set; }
         public DateTime Dateofbirth { get; set; }
     }
 }

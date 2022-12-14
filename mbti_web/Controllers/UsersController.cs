@@ -26,7 +26,7 @@ namespace mbti_web.Controllers
 
         // POST: api/users/authenticate
         [HttpPost("authenticate")]
-        public IActionResult Authenticate(AuthenticateRequest model)
+        public IActionResult Authenticate(AuthenticateRequest model) // ModelState.IsValid;
         {
             var response = _userService.Authenticate(model);
 
@@ -51,9 +51,9 @@ namespace mbti_web.Controllers
         }
 
         // GET: api/Users
-        [Authorize]
+        [Authorize()]
         [HttpGet]
-        public IActionResult GetUsers()
+        public IActionResult GetUsers() //  claim
         {
             var users = _userService.GetAll(); 
             return Ok(users); // return 200 (OK)
@@ -64,7 +64,7 @@ namespace mbti_web.Controllers
         [HttpGet("{id}")]
         public IActionResult GetUserByID(int id)
         {
-            User u = _userService.GetById(id);
+            var u = _userService.GetById(id);
 
             if (u == null)
             {
@@ -90,7 +90,8 @@ namespace mbti_web.Controllers
         }
 
         // PATCH: api/Users/5
-        [Authorize]
+        //[Authorize]
+        [Authorize("admin")] // в jwt
         [HttpPatch("{id}")]
         public IActionResult UpdateUserTelegram([FromBody] UserModel userModel, int id) 
         {

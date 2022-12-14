@@ -6,9 +6,10 @@ namespace mbti_web.Services
 {
     public interface ITypeService
     {
-        IEnumerable<Type> GetAllTypes();
-        Type GetTypeByID(int id);
-        Type? GetTypeByName(string name);
+        List<TypeModel> GetAllTypes();
+        TypeModel GetTypeByID(int id);
+        TypeModel? GetTypeByName(string name);
+        List<TypeModel> GetTypeByNameLike(string name);
         void UpdateDesc(TypeModel typeModel);
     }
 }

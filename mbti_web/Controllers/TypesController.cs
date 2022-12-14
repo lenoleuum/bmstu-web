@@ -29,9 +29,18 @@ namespace mbti_web.Controllers
         // GET: api/Types
         [Authorize]
         [HttpGet]
-        public IEnumerable<Type> GetTypes()
+        public IActionResult GetTypes(string? name = "")
         {
-            return _typeService.GetAllTypes(); // return 200 (OK)
+            if (name == "")
+            {
+                var types = _typeService.GetAllTypes();
+                return Ok(types); // return 200 (OK)
+            }
+            else
+            {
+                var types = _typeService.GetTypeByNameLike(name);
+                return Ok(types); // return 200 (OK)
+            }
         }
 
         // GET: api/Types/5

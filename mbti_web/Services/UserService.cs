@@ -64,12 +64,21 @@ namespace mbti_web.Services
             _repuser.Add(user);
         }
 
-        public IEnumerable<User> GetAll()
+        public List<UserModel> GetAll()
         {
-            return _repuser.GetAll();
+            List<UserModel> res = new List<UserModel>();
+
+            foreach (User u in _repuser.GetAll())
+                res.Add(_mapper.Map<UserModel>(u));
+
+            return res;
         }
 
-        public User GetById(int id)
+        public UserModel GetById(int id)
+        {
+            return _mapper.Map<UserModel>(_repuser.Find(id));
+        }
+        public User GetByIdUser(int id)
         {
             return _repuser.Find(id);
         }
@@ -85,9 +94,9 @@ namespace mbti_web.Services
             var user = _mapper.Map<User>(userModel);
             _repuser.Update(user);
         }
-        public void DeleteUser(User user)
+        public void DeleteUser(UserModel user)
         {
-            _repuser.Remove(user);
+            _repuser.Remove(_mapper.Map<User>(user));
         }
     }
 }

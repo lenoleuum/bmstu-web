@@ -23,27 +23,58 @@ namespace mbti_web.Controllers
             _charService = charService;
         }
 
-        // GET: api/Characters or api/Characters?typeuk=5
+        // GET: api/Characters or api/Characters?str=ENTP&flag=1
         [Authorize]
         [HttpGet]
-        public IEnumerable<Character> GetCharacters(int typeuk = -1)
+        public IActionResult GetCharacters(string? str = "", int? flag = -1) // fromQuery
         {
-            if (typeuk == -1)
-                return _charService.GetAllCharacters(); // return 200 (OK)
+            if (str == "" && flag == -1)
+            {
+                var characters = _charService.GetAllCharacters();
+                return Ok(characters); // return 200 (OK)
+            }
             else
             {
-                List<Character> chars = _charService.GetAllCharacters().ToList();
-                List<Character> result = new List<Character>();
+                List<CharacterModel> chars = _charService.GetAllCharacters().ToList();
+                List<CharacterModel> result = new List<CharacterModel>();
 
-                foreach (Character c in chars)
+                switch (flag)
                 {
-                    if (c.Typeuk == typeuk)
-                    {
-                        result.Add(c);
-                    }
+                    case 1:
+                        foreach (CharacterModel c in chars)
+                        {
+                            if (c.Type.Contains(str))
+                            {
+                                result.Add(c);
+                            }
+                        }
+
+                        break;
+                    case 2:
+                        foreach (CharacterModel c in chars)
+                        {
+                            if (c.Category.Contains(str))
+                            {
+                                result.Add(c);
+                            }
+                        }
+
+                        break;
+                    case 3:
+                        foreach (CharacterModel c in chars)
+                        {
+                            if (c.Name.Contains(str))
+                            {
+                                result.Add(c);
+                            }
+                        }
+
+                        break;
+                    default:
+                        break;
                 }
 
-                return result;  // return 200 (OK)
+                return Ok(result);  // return 200 (OK)
             }
         }
 
@@ -96,7 +127,7 @@ namespace mbti_web.Controllers
 
             _charService.UpdateType(characterModel);
 
-            return NoContent();  //return 204 (NO CONTENT)
+            return Ok(characterModel);  //return 200 (OK)
         }
     }
 }

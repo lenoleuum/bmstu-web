@@ -6,9 +6,9 @@ namespace mbti_web.Models
     {
         public int ID { get; set; }
         public string Login { get; set; }
-        public string Nickname { get; set; } // убрать
+        public string Nickname { get; set; } // todo: delete
         public string Email { get; set; }
-        public string Telagram { get; set; } // убрать
+        public string Telagram { get; set; } // todo: delete
         public int Typeuk { get; set; }
         public DateTime Dateofbirth { get; set; }
         public string Token { get; set; }

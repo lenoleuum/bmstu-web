@@ -5,8 +5,8 @@ namespace mbti_web.Services
 {
     public interface ICharacterService
     {
-        IEnumerable<Character> GetAllCharacters();
-        Character GetCharacterByID(int id);
+        List<CharacterModel> GetAllCharacters();
+        CharacterModel GetCharacterByID(int id);
         void AddCharacter(CharacterModel charModel);
         void UpdateType(CharacterModel charModel);
     }

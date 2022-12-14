@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using mbti_web.Services;
+using mbti_web.Repository;
 
 namespace mbti_web.Middleware
 {
@@ -15,7 +16,6 @@ namespace mbti_web.Middleware
         private readonly RequestDelegate _next;
         private readonly IConfiguration _configuration;
         //private readonly ILogger _logger;
-
         public JwtMiddleware(RequestDelegate next, IConfiguration configuration)
         {
             _next = next;
@@ -37,6 +37,7 @@ namespace mbti_web.Middleware
             try
             {
                 var tokenHandler = new JwtSecurityTokenHandler();
+
                 // min 16 characters
                 var key = Encoding.ASCII.GetBytes(_configuration["Secret"]);
                 tokenHandler.ValidateToken(token, new TokenValidationParameters
@@ -51,7 +52,7 @@ namespace mbti_web.Middleware
                 var jwtToken = (JwtSecurityToken)validatedToken;
                 var userId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
 
-                context.Items["User"] = userService.GetById(userId);
+                context.Items["User"] = userService.GetByIdUser(userId);
             }
             catch
             {

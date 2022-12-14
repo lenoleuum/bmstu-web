@@ -14,13 +14,18 @@ namespace mbti_web.Services
             _repchar = repchar;
             _mapper = mapper;
         }
-        public IEnumerable<Character> GetAllCharacters()
+        public List<CharacterModel> GetAllCharacters()
         {
-            return _repchar.GetAll();
+            List<CharacterModel> res = new List<CharacterModel>();
+
+            foreach (Character c in _repchar.GetAll())
+                res.Add(_mapper.Map<CharacterModel>(c));
+
+            return res;
         }
-        public Character GetCharacterByID(int id)
+        public CharacterModel GetCharacterByID(int id)
         {
-            return _repchar.Find(id);
+            return _mapper.Map<CharacterModel>(_repchar.Find(id));
         }
         public void AddCharacter(CharacterModel charModel)
         {

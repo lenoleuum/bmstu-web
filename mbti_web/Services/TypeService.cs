@@ -20,20 +20,37 @@ namespace mbti_web.Services
             _mapper = mapper;
             _repType = repType;
         }
-        public IEnumerable<Type> GetAllTypes()
+        public List<TypeModel> GetAllTypes()
         {
-            return _repType.GetAll();
+            List<TypeModel> res = new List<TypeModel>();
+
+            foreach (Type t in _repType.GetAll())
+                res.Add(_mapper.Map<TypeModel>(t));
+
+            return res;
         }
-        public Type GetTypeByID(int id)
+        public TypeModel GetTypeByID(int id)
         {
-            return _repType.Find(id);
+            return _mapper.Map<TypeModel>(_repType.Find(id));
         }
-        public Type? GetTypeByName(string name)
+        public TypeModel? GetTypeByName(string name)
         {
             var type = _repType.GetAll().FirstOrDefault(t => t.Typename == name);
 
-            return type;
+            return _mapper.Map<TypeModel>(type);
         }
+
+        public List<TypeModel> GetTypeByNameLike(string name)
+        {
+            List<Type> types = _repType.GetAll().Where(t => t.Typename.Contains(name)).ToList();
+            List<TypeModel> res = new List<TypeModel>();
+
+            foreach (Type t in types)
+                res.Add(_mapper.Map<TypeModel>(t));
+
+            return res;
+        }
+
         public void UpdateDesc(TypeModel typeModel)
         {
             var type = _mapper.Map<Type>(typeModel);

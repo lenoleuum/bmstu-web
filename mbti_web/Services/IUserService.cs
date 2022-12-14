@@ -9,11 +9,12 @@ namespace mbti_web.Services
     {
         AuthenticateResponse Authenticate(AuthenticateRequest model);
         Task<AuthenticateResponse> Register(UserModel userModel);
-        IEnumerable<User> GetAll();
-        User GetById(int id);
+        List<UserModel> GetAll();
+        UserModel GetById(int id);
+        User GetByIdUser(int id);
         bool CheckLoginUnique(string Login);
         void UpdateUser(UserModel userModel);
-        void DeleteUser(User user);
+        void DeleteUser(UserModel user);
         void AddUser(UserModel userModel);
     }
 }
