@@ -33,6 +33,6 @@ jobs:
       
     - name: Unit Tests
       run: dotnet test UnitTests
-      working-directory: UnitTests
+      working-directory: mbti_web
     
     
