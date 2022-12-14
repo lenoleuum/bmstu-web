@@ -14,5 +14,18 @@ namespace mbti_web.Models
         public string Telagram { get; set; }
         public string Typeuk { get; set; }
         public DateTime Dateofbirth { get; set; }
+        public UserModel() { }
+        public UserModel(int _id, string _login, string _password, string _nickname, string _email,
+                            string _telegram, string _typeuk, DateTime _dateOfBirth)
+        {
+            this.ID = _id;
+            this.Login = _login;
+            this.Password = _password;
+            this.Nickname = _nickname;
+            this.Telagram = _telegram;
+            this.Typeuk = _typeuk;
+            this.Dateofbirth = _dateOfBirth;
+            this.Email = _email;
+        }
     }
 }

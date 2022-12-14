@@ -37,5 +37,14 @@ namespace mbti_web.Services
             var character = _mapper.Map<Character>(charModel);
             _repchar.Update(character);
         }
+        public List<CharacterModel> GetCharacterByType(int type)
+        {
+            List<CharacterModel> res = new List<CharacterModel>();
+
+            foreach (Character c in _repchar.GetAll().Where(c => c.Typeuk == type).ToList())
+                res.Add(_mapper.Map<CharacterModel>(c));
+
+            return res;
+        }
     }
 }

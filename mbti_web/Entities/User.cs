@@ -17,5 +17,20 @@ namespace mbti_web.Entities
         public DateTime Dateofbirth { get; set; }
 
         //public virtual Type TypeukNavigation { get; set; }
+
+        public User() { }
+
+        public User(int _userUk, string _login, string _password, string _nickname,
+                            string _email, string _telegram, int _typeUk, DateTime _dateOfBirth)
+        {
+            Useruk = _userUk;
+            Login = _login;
+            Password = _password;
+            Nickname = _nickname;
+            Email = _email;
+            Telagram = _telegram;
+            Typeuk = _typeUk;
+            Dateofbirth = _dateOfBirth;
+        }
     }
 }
