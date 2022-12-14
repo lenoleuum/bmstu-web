@@ -22,17 +22,13 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 6.0.x
-    
-    - name: Restore dependencies UnitTests
+              
+    - name: Install dependencies
       run: dotnet restore
-      working-directory: UnitTests
-    
-    - name: Build UnitTests
-      run: dotnet build --no-restore
-      working-directory: UnitTests
-      
-    - name: Unit Tests
-      run: dotnet test UnitTests
-      working-directory: mbti_web
+    - name: Build
+      run: dotnet build
+    - name: Test
+      run: dotnet test 
+  
     
     
