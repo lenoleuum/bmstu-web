@@ -1,4 +1,5 @@
 ﻿using mbti_web.Repository;
+using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
@@ -13,7 +14,7 @@ namespace mbti_web.Models
         public string Email { get; set; }
         public string Telagram { get; set; }
         public string Typeuk { get; set; }
-        public DateTime Dateofbirth { get; set; }
+        public DateTime? Dateofbirth { get; set; }
         public UserModel() { }
         public UserModel(int _id, string _login, string _password, string _nickname, string _email,
                             string _telegram, string _typeuk, DateTime _dateOfBirth)
@@ -24,7 +25,7 @@ namespace mbti_web.Models
             this.Nickname = _nickname;
             this.Telagram = _telegram;
             this.Typeuk = _typeuk;
-            this.Dateofbirth = _dateOfBirth;
+            this.Dateofbirth = _dateOfBirth.Date;
             this.Email = _email;
         }
     }

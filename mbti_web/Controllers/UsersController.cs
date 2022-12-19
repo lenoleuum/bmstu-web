@@ -38,16 +38,20 @@ namespace mbti_web.Controllers
 
         // POST: api/users/register
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] UserModel userModel)
+        public IActionResult Register([FromBody] AuthenticateRequest userModel)
         {
-            var response = _userService.Register(userModel); //await 
+            /*var response = _userService.Register(userModel); //await 
 
             if (response == null)
             {
                 return BadRequest(new { message = "Error! Didn't register!" });
             }
 
-            return Ok(response);
+            return Ok(response);*/
+
+            _userService.Register(userModel);
+
+            return Ok(userModel);
         }
 
         // GET: api/Users
@@ -90,10 +94,10 @@ namespace mbti_web.Controllers
         }
 
         // PATCH: api/Users/5
-        //[Authorize]
-        [Authorize("admin")] // в jwt
+        //[Authorize("admin")] // в jwt
+        [Authorize]
         [HttpPatch("{id}")]
-        public IActionResult UpdateUserTelegram([FromBody] UserModel userModel, int id) 
+        public IActionResult UpdateUser(int id, [FromBody] UserModel userModel) 
         {
             if (userModel == null)
             {

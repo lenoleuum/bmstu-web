@@ -37,11 +37,11 @@ namespace mbti_web.Services
             return new AuthenticateResponse(user, token);
         }
 
-        public Task<AuthenticateResponse>? Register(UserModel userModel)
+        /*public Task<AuthenticateResponse>? Register(AuthenticateRequest userRequest)
         {
-            if (CheckLoginUnique(userModel.Login))
+            if (CheckLoginUnique(userRequest.Login))
             {
-                var user = _mapper.Map<User>(userModel);
+                var user = _mapper.Map<User>(userRequest);
 
                 //var addedUser = await _repuser.Add(user);
 
@@ -57,6 +57,20 @@ namespace mbti_web.Services
             }
             else
                 return null;
+        }*/
+        public void Register(AuthenticateRequest userModel)
+        {
+            if (CheckLoginUnique(userModel.Login))
+            {
+                User user = _mapper.Map<User>(userModel);
+
+                user.Telagram = "";
+                user.Email = "";
+                user.Dateofbirth = new DateTime();
+                user.Nickname = "";
+
+                _repuser.Add(user);
+            }
         }
         public void AddUser(UserModel userModel)
         {
@@ -77,6 +91,10 @@ namespace mbti_web.Services
         public UserModel GetById(int id)
         {
             return _mapper.Map<UserModel>(_repuser.Find(id));
+        }
+        public UserModel GetByLogin(string login)
+        {
+            return _mapper.Map<UserModel>(_repuser.GetAll().Where(u => u.Login == login).FirstOrDefault());
         }
         public User GetByIdUser(int id)
         {

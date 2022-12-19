@@ -59,17 +59,11 @@ namespace mbti_web.Repository
 
             u.Telagram = user.Telagram;
             u.Email = user.Email;
+            u.Typeuk = user.Typeuk;
+            u.Nickname = user.Nickname;
+            u.Dateofbirth = user.Dateofbirth;
 
             this.db.SaveChanges();
-        }
-        private bool CheckUniqueId(int id)
-        {
-            var u = this.db.Users.Where(u => u.Useruk == id).FirstOrDefault();
-
-            if (u == null)
-                return true;
-            else
-                return false;
         }
         private bool CheckUniqueLogin(string login)
         {

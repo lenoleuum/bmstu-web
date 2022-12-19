@@ -1,0 +1,47 @@
+.list {
+    text-align: center;
+    max-width: 800px;
+    margin: auto;
+  }
+  
+  .submit-form {
+    max-width: 300px;
+    margin: auto;
+  }
+  
+  .edit-form {
+    max-width: 300px;
+    margin: auto;
+  }
+  .navbar-default {
+    background-color: #F8F8F8;
+    border-color: #E7E7E7;
+  }
+  
+  .img {
+    display: inline-block;
+    height: auto;
+    max-width: 100%;
+  }
+  
+  .container-fluid {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-control {
+    max-width: 500px;
+    align-self: center;
+  }
+  
+  .type {
+    max-width: 200;
+    size: 100;
+    background: #ffffff;
+    font-size: 20;
+  }
+  
+  .list-group-item panel.active, .list-group-item panel.active a.active {
+    background-color: #030;
+    border-color: #aed248;
+  }

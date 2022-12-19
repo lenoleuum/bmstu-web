@@ -1,0 +1,49 @@
+tr {
+    display: block;
+    margin:0 auto;
+    align-self: center;
+    width: 50%;
+}
+
+td {
+    text-align: center;
+    width: 50%;
+}
+
+#cssTable td 
+{
+    text-align: center; 
+    vertical-align: middle;
+}
+
+#reg {
+    width: 1000px;
+    position: absolute;
+    left: 50%;
+    margin-left: -500px;
+    }
+
+.button-text {
+    color: black;
+}
+
+.btn-back {
+    width: 40px;
+    background-image: url("../img/back.png");
+    height: 40px;
+    border-color: white;
+    box-shadow: none;
+    color: white;
+    background: transparent;
+    color: white;
+    border-style: solid;
+}
+
+.navbar {
+    margin-left: auto;
+    align-self: auto;
+}
+
+.navbar-nav {
+    margin: auto;
+}
