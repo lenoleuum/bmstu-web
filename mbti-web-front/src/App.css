@@ -1,0 +1,181 @@
+.list {
+  text-align: center;
+  max-width: 800px;
+  margin: auto;
+}
+
+.submit-form {
+  max-width: 300px;
+  margin: auto;
+}
+
+.edit-form {
+  max-width: 300px;
+  margin: auto;
+}
+.navbar-default {
+  background-color: #F8F8F8;
+  border-color: #E7E7E7;
+}
+/* Title */
+.navbar-default .navbar-brand {
+  color: #777;
+}
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+  color: #5E5E5E;
+}
+/* Link */
+/* Link */
+.nav-item {
+  color: rgb(112, 23, 23);
+}
+
+.img {
+  display: inline-block;
+  height: auto;
+  max-width: 100%;
+}
+
+.container-fluid {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-control {
+  max-width: 500px;
+  align-self: center;
+}
+
+.type {
+  max-width: 200;
+  size: 100;
+  background: #ffffff;
+  font-size: 20;
+}
+
+.list-group-item panel.active, .list-group-item panel.active a.active {
+  background-color: #030;
+  border-color: #aed248;
+}
+
+.list-group-item {
+  width: 300px;
+}
+
+.text {
+  font-weight: bold;
+}
+
+.textcols {
+	white-space: nowrap;
+	font-size: 0;
+  background: #D9D9D9;
+  display: inline-block;
+  width: 300px;
+}
+.textcols-item {
+	white-space: normal;	
+	display: inline-block;
+	width: 20%;
+	vertical-align: top;
+	margin-right: 10%;
+	font-size: 14px;
+}
+
+.textcols .textcols-item:last-child {
+	margin-right: 0 ;
+}
+
+.ul{
+  columns: 2;
+  column-span: all;
+  column-width: 200px;
+  list-style-position: inside;
+}
+
+.mbti-img {
+  display:block;
+  margin:auto;
+  text-align:center;
+}
+
+.form-group {
+  text-align:center;
+  max-width: 300px;
+  align-self: center;
+  text-align: left;
+  display: block;
+}
+
+.btn-logout {
+  color: #ffc107;
+  background-color: #ffc107;
+  border-color: #ffc107;
+  border-style: solid;
+}
+
+.loginlabel {
+  white-space: pre-wrap;
+}
+
+#rectangle {
+  width: 220px;
+  height: 120px;
+  background: #ffc107;
+  align-self: flex-start;
+}
+
+.td-item {
+  vertical-align: top;
+  margin-left: auto;
+  padding-left: 0%;
+}
+
+.btn-back-profile {
+  width: 50px;
+  height: 50px;
+  border-color: white;
+  box-shadow: none;
+  color: white;
+  background: transparent;
+  color: white;
+  border-style: solid;
+  align-self:center;
+}
+
+.profile-img {
+  background-color: #ffc107;
+  background-size: 200% 200%;
+}
+
+.rectangle {
+  width: 70%;
+  height: 100px;
+  margin:auto;
+  background: #ffc107;
+}
+
+.text_center{
+  font-size: larger;
+  color: black;
+  text-align: center;
+  font-weight: bold;
+}
+
+.text-small {
+  font-size: small;
+  font-weight: normal;
+}
+
+.btn-type {
+  width: 50px;
+}
+
+.drop-menu {
+  color: #5E5E5E;
+}
+
+.back-img {
+  padding:0%;
+}

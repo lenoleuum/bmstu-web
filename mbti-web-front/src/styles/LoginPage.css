@@ -1,0 +1,61 @@
+.mbti-img {
+    display:block;
+    margin:auto;
+    text-align:center;
+  }
+  
+  .form-group {
+    text-align:center;
+    max-width: 300px;
+    align-self: center;
+    text-align: left;
+    display: block;
+  }
+
+  .btn {
+    background-color: #D9D9D9;
+    border-color: #D9D9D9;
+  }
+  
+  .btn-login {
+    background-color: #FCD12A;
+    border-color: #FCD12A;
+  }
+
+  .btn-register {
+    background-color: #D9D9D9;
+    border-color: #D9D9D9;
+  }
+  
+  .loginlabel {
+    white-space: pre-wrap;
+  }
+  
+  div {
+    margin:0 auto;
+  }
+  
+  #log {
+    width: 1000px;
+    position: absolute;
+    left: 50%;
+    margin-left: -500px;
+    }
+
+.mbti-world {
+    margin:0 auto;
+    font-weight: bold;
+    display: block;
+    text-align: center;
+}
+
+.text-password {
+    margin:0 auto;
+    display: block;
+    text-align: center;
+    font-size: small;
+}
+
+.button-text {
+  color: #000;
+}
