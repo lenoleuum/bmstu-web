@@ -43,7 +43,7 @@ namespace mbti_web.Controllers
                     case 1:
                         foreach (CharacterModel c in chars)
                         {
-                            if (c.Type.Contains(str))
+                            if (c.Type.ToLower().Contains(str.ToLower()))
                             {
                                 result.Add(c);
                             }
@@ -53,7 +53,7 @@ namespace mbti_web.Controllers
                     case 2:
                         foreach (CharacterModel c in chars)
                         {
-                            if (c.Category.Contains(str))
+                            if (c.Category.ToLower().Contains(str.ToLower()))
                             {
                                 result.Add(c);
                             }
@@ -63,7 +63,7 @@ namespace mbti_web.Controllers
                     case 3:
                         foreach (CharacterModel c in chars)
                         {
-                            if (c.Name.Contains(str))
+                            if (c.Name.ToLower().Contains(str.ToLower()))
                             {
                                 result.Add(c);
                             }

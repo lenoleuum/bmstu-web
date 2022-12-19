@@ -42,7 +42,7 @@ namespace mbti_web.Services
 
         public List<TypeModel> GetTypeByNameLike(string name)
         {
-            List<Type> types = _repType.GetAll().Where(t => t.Typename.Contains(name)).ToList();
+            List<Type> types = _repType.GetAll().Where(t => t.Typename.ToLower().Contains(name.ToLower())).ToList();
             List<TypeModel> res = new List<TypeModel>();
 
             foreach (Type t in types)

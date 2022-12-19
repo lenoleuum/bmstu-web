@@ -1,4 +1,5 @@
 ﻿using mbti_web.Entities;
+using mbti_web.Mappers;
 
 namespace mbti_web.Models
 {
@@ -9,8 +10,8 @@ namespace mbti_web.Models
         public string Nickname { get; set; } // todo: delete
         public string Email { get; set; }
         public string Telagram { get; set; } // todo: delete
-        public int Typeuk { get; set; }
-        public DateTime Dateofbirth { get; set; }
+        public string Typeuk { get; set; }
+        public string Dateofbirth { get; set; }
         public string Token { get; set; }
         public AuthenticateResponse(User u, string token)
         {
@@ -19,9 +20,11 @@ namespace mbti_web.Models
             Nickname = u.Nickname;
             Email = u.Email;
             Telagram = u.Telagram;
-            Typeuk = u.Typeuk;
-            Dateofbirth = u.Dateofbirth;
+            Typeuk = new TypesDict().getTypeById(u.Typeuk);
+            Dateofbirth = u.Dateofbirth.Date.ToString("yyyy-MM-dd");
             Token = token;
         }
+
+        public AuthenticateResponse() { }
     }
 }

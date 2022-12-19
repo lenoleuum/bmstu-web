@@ -8,9 +8,11 @@ namespace mbti_web.Services
     public interface IUserService
     {
         AuthenticateResponse Authenticate(AuthenticateRequest model);
-        Task<AuthenticateResponse> Register(UserModel userModel);
+        //Task<AuthenticateResponse> Register(AuthenticateRequest userModel);
+        void Register(AuthenticateRequest userModel);
         List<UserModel> GetAll();
         UserModel GetById(int id);
+        UserModel GetByLogin(string login);
         User GetByIdUser(int id);
         bool CheckLoginUnique(string Login);
         void UpdateUser(UserModel userModel);
