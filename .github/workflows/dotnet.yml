@@ -48,8 +48,8 @@ jobs:
       working-directory: mbti_web
       
       
-    - name: UnitTest
-      run: dotnet test UnitTests
+    #- name: UnitTest
+    #  run: dotnet test UnitTests
 
     - name: E2ETest
       run: dotnet test E2ETest
