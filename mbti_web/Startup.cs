@@ -33,8 +33,8 @@ namespace mbti_web
                 ServiceLifetime.Transient);
 
             services.AddScoped<IRepositoryUser, RepositoryUser>();
-            services.AddSingleton<IRepositoryType, RepositoryType>();
-            services.AddSingleton<IRepositoryCharacter, RepositoryCharacter>();
+            services.AddScoped<IRepositoryType, RepositoryType>();
+            services.AddScoped<IRepositoryCharacter, RepositoryCharacter>();
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ITypeService, TypeService>();
@@ -46,6 +46,8 @@ namespace mbti_web
             services.AddAutoMapper(typeof(TypeProfile));
             services.AddAutoMapper(typeof(CharacterProfile));
             services.AddCors();
+
+            
 
             #region swagger config       
             services.AddSwaggerGen(setup =>
