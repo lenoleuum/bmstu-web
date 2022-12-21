@@ -20,7 +20,7 @@ jobs:
         # `POSTGRES_HOST` is `postgres`
         env:
           # required
-          POSTGRES_PASSWORD: 123
+          POSTGRES_PASSWORD: 1234
 
         ports:
           # maps tcp port 5432 on service container to the host
