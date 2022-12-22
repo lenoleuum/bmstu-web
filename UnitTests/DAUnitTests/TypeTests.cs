@@ -61,7 +61,7 @@ namespace UnitTests
         }
 
         [AllureXunitTheory]
-        [AutoMoqData]
+        [InlineData(555)]
         public void TestGetByIdNotExist(int _id)
         {
             // Arrange
