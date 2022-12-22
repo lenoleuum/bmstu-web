@@ -10,18 +10,6 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        database-name:
-        - mbti_db
-        database-password:
-        - 1234
-        database-user:
-        - postgres
-        database-host:
-        - 127.0.0.1
-        database-port:
-        - 5432
     
     services:
       postgres:
@@ -87,9 +75,9 @@ jobs:
         POSTGRES_HOST: postgres
         POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
     - name: Init db
-      run: psql "sslmode=disable user=postgres hostaddr=postgres port=5432 password=1234 dbname=mbti_db" < db_init.sql
+      run: psql "sslmode=disable user=postgres hostaddr=127.0.0.1 port=5432 password=1234 dbname=mbti_db" < db_init.sql
     - name: Fill db
-      run: psql "sslmode=disable user=postgres hostaddr=postgres port=5432 password=1234 dbname=mbti_db" < db_fill.sql
+      run: psql "sslmode=disable user=postgres hostaddr=127.0.0.1 port=5432 password=1234 dbname=mbti_db" < db_fill.sql
     - name: IntegrationTests
       run: dotnet test IntegrationTests
       env:
@@ -111,5 +99,3 @@ jobs:
       working-directory: E2ETest
     - name: E2ETest
       run: dotnet test E2ETest
-      
-    
