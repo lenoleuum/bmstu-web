@@ -79,12 +79,13 @@ jobs:
       run: psql "sslmode=disable user=postgres hostaddr=127.0.0.1 port=5432 password=1234 dbname=mbti_db" < db_init.sql
     - name: Fill db
       run: psql "sslmode=disable user=postgres hostaddr=127.0.0.1 port=5432 password=1234 dbname=mbti_db" < db_fill.sql
+    - name: IntegrationTests
+      run: dotnet test IntegrationTests
     - name: Clear db
       run: psql "sslmode=disable user=postgres hostaddr=127.0.0.1 port=5432 password=1234 dbname=mbti_db" < db_clear.sql
     - name: Drop db
       run: psql "sslmode=disable user=postgres hostaddr=127.0.0.1 port=5432 password=1234 dbname=mbti_db" < db_drop.sql
-    - name: IntegrationTests
-      run: dotnet test IntegrationTests
+    
 
     - name: Restore dependencies E2ETest
       run: dotnet restore
