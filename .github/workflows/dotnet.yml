@@ -16,10 +16,9 @@ jobs:
         image: postgres:latest
         env:
           POSTGRES_DB: "mbti_db"
-          SCHEMA: "MBTI"
           POSTGRES_USER: "postgres"
           POSTGRES_PASSWORD: "1234"
-          POSTGRES_HOST: postgres
+          #POSTGRES_HOST: postgres
         ports:
           - 5432:5432
         options: >-
@@ -48,13 +47,30 @@ jobs:
       run: dotnet build
       working-directory: mbti_web
       
-      
+    - name: Restore dependencies UnitTest
+      run: dotnet restore
+      working-directory: UnitTest
+    - name: Build UnitTest
+      run: dotnet build --no-restore                 
+      working-directory: UnitTest
     - name: UnitTest
       run: dotnet test UnitTests
       
+    - name: Restore dependencies IntegrationTests
+      run: dotnet restore
+      working-directory: IntegrationTests
+    - name: Build IntegrationTests
+      run: dotnet build --no-restore                 
+      working-directory: IntegrationTests
     - name: IntegrationTests
       run: dotnet test IntegrationTests
 
+    - name: Restore dependencies E2ETest
+      run: dotnet restore
+      working-directory: E2ETest
+    - name: Build E2ETest
+      run: dotnet build --no-restore                 
+      working-directory: E2ETest
     - name: E2ETest
       run: dotnet test E2ETest
       
