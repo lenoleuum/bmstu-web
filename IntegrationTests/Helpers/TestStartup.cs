@@ -21,7 +21,7 @@ namespace IntegrationTests.Helpers
         public TestStartup(IConfiguration configuration) : base(configuration)
         {
             configuration["Secret"] = "0123456789123456";
-            configuration["DefaultConnection"] = "Host=localhost; Port=5432;Database=mbti_db;Username=postgres;Password=1234;";
+            configuration["DefaultConnection"] = "Server=localhost; Port=5432;Database=mbti_db;Username=postgres;Password=1234;";
         }
         public override void ConfigureServices(IServiceCollection services)
         {
