@@ -49,10 +49,10 @@ jobs:
       
     - name: Restore dependencies UnitTest
       run: dotnet restore
-      working-directory: UnitTest
+      working-directory: UnitTests
     - name: Build UnitTest
       run: dotnet build --no-restore                 
-      working-directory: UnitTest
+      working-directory: UnitTests
     - name: UnitTest
       run: dotnet test UnitTests
       
