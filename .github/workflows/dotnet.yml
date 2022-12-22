@@ -27,14 +27,14 @@ jobs:
       postgres:
         image: postgres:latest
         env:
-          POSTGRES_DB: "mbti_db"
-          POSTGRES_USER: "postgres"
-          POSTGRES_PASSWORD: "1234"
-          3POSTGRES_HOST: 127.0.0.1
+          POSTGRES_DB: mbti_db
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: 1234
+          #POSTGRES_HOST: 127.0.0.1
           #POSTGRES_HOST: postgres
         ports:
           #- "127.0.0.1:5432:5432"
-          - "5432:5432"
+          - 5432:5432
         options: >-
             --health-cmd pg_isready
             --health-interval 10s
@@ -73,13 +73,23 @@ jobs:
     - name: Restore dependencies IntegrationTests
       run: dotnet restore
       working-directory: IntegrationTests
+      env:
+        # use postgres for the host here because we have specified a container for the job.
+        # If we were running the job on the VM this would be localhost
+        POSTGRES_HOST: postgres
+        POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
     - name: Build IntegrationTests
       run: dotnet build --no-restore                 
       working-directory: IntegrationTests
+      env:
+        # use postgres for the host here because we have specified a container for the job.
+        # If we were running the job on the VM this would be localhost
+        POSTGRES_HOST: postgres
+        POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
     - name: Init db
-      run: psql "sslmode=disable user=postgres hostaddr=127.0.0.1 port=5432 password=1234 dbname=mbti_db" < db_init.sql
+      run: psql "sslmode=disable user=postgres hostaddr=postgres port=5432 password=1234 dbname=mbti_db" < db_init.sql
     - name: Fill db
-      run: psql "sslmode=disable user=postgres hostaddr=127.0.0.1 port=5432 password=1234 dbname=mbti_db" < db_fill.sql
+      run: psql "sslmode=disable user=postgres hostaddr=postgres port=5432 password=1234 dbname=mbti_db" < db_fill.sql
     - name: IntegrationTests
       run: dotnet test IntegrationTests
       env:
