@@ -8,6 +8,8 @@ namespace mbti_web.Services
         List<CharacterModel> GetAllCharacters();
         CharacterModel GetCharacterByID(int id);
         List<CharacterModel> GetCharacterByType(int type);
+        List<CharacterModel> GetCharacterByType(string type);
+        List<CharacterModel> GetCharacterByStrLike(string _str, int _flag);
         void AddCharacter(CharacterModel charModel);
         void UpdateType(CharacterModel charModel);
     }

@@ -36,10 +36,9 @@ namespace UnitTests.BLUnitTests
             CharacterModel actualCharacter = characterService.GetCharacterByID(expectedCharacter.Characteruk);
 
             // Assert
-            /*Assert.Equal(expectedCharacter.Characteruk, actualCharacter.ID);
+            Assert.Equal(expectedCharacter.Characteruk, actualCharacter.ID);
             Assert.Equal(expectedCharacter.Charactername, actualCharacter.Name);
-            Assert.Equal(expectedCharacter.Category, actualCharacter.Category);*/
-            Assert.Null(actualCharacter);
+            Assert.Equal(expectedCharacter.Category, actualCharacter.Category);
         }
 
         //[AllureXunit]
@@ -64,7 +63,7 @@ namespace UnitTests.BLUnitTests
             List<CharacterModel> charactersList = characterService.GetAllCharacters().ToList();
 
             // Assert
-            Assert.Null(charactersList);
+            Assert.NotNull(charactersList);
         }
 
         //[AllureXunitTheory]
@@ -90,7 +89,7 @@ namespace UnitTests.BLUnitTests
             List<CharacterModel> charactersList = characterService.GetCharacterByType(_typeId);
 
             // Assert
-            Assert.Null(charactersList);
+            Assert.NotNull(charactersList);
         }
     }
 }
