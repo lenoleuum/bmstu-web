@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,7 +21,7 @@ namespace IntegrationTests.Helpers
         public TestStartup(IConfiguration configuration) : base(configuration)
         {
             configuration["Secret"] = "0123456789123456";
-            configuration["DefaultConnection"] = "Server=localhost; Port=5432;Database=mbti_db;Username=postgres;Password=1234;";
+            configuration["DefaultConnection"] = "Host=127.0.0.1;Port=5432;Database=mbti_db;Username=postgres;Password=1234;";
         }
         public override void ConfigureServices(IServiceCollection services)
         {
