@@ -19,6 +19,7 @@ jobs:
           SCHEMA: "MBTI"
           POSTGRES_USER: "postgres"
           POSTGRES_PASSWORD: "1234"
+          POSTGRES_HOST: postgres
         ports:
           - 5432:5432
         options: >-
