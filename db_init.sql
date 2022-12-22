@@ -1,8 +1,6 @@
 \c mbti_db
 
-create schema MBTI;
-
-create table MBTI.Users
+create table users
 (
 	UserUK int primary key,
 	Login varchar(100) not null ,
@@ -14,14 +12,14 @@ create table MBTI.Users
 	DateOfBirth date
 );
 
-create table MBTI.Types
+create table types
 (
 	TypeUK int primary key,
 	TypeName varchar(255) not null ,
 	TypeDescription text
 );
 
-create table MBTI.Characters
+create table characters
 (	
 	CharacterUK int primary key,
 	CharacterName varchar(255) not null,
@@ -29,4 +27,4 @@ create table MBTI.Characters
 	Category varchar(100)
 );
 
-alter table MBTI.Characters add constraint Characters_TypeUk_FK foreign key (TypeUK) references MBTI.Types(TypeUK);
+alter table characters add constraint Characters_TypeUk_FK foreign key (TypeUK) references types(TypeUK);
