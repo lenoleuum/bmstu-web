@@ -9,5 +9,11 @@ namespace mbti_web.Models
 
         [Required]
         public string Password { get; set; }
+        public AuthenticateRequest() { }
+        public AuthenticateRequest(string login, string password)
+        {
+            Login = login;
+            Password = password;
+        }
     }
 }

@@ -20,181 +20,88 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using System.Configuration;
+using Microsoft.AspNetCore.Hosting;
+using IntegrationTests.Helpers;
 
 namespace IntegrationTests
 {
-    [AllureSuite("IntegrationTestUserService")]
-    public class IntegTestsUser: IClassFixture<WebApplicationFactory<mbti_web.Startup>> //, IDisposable
+    [AllureSuite("IntegrationTestUser")]
+    public class IntegTestsUser
     {
-        //private DbContextOptions<mbti_dbContext> options;
-        /*private mbti_dbContext dbContext;
-        private IRepositoryUser repUser;
-        private IRepositoryType repType;
-        private IRepositoryCharacter repCharacter;*/
+        private IUserService _userService;
 
-        //private readonly WebApplicationFactory<Startup> _factory;
-        private IUserService userService;
-        public List<UserModel> data;
-
-        //private IRepositoryUser sut { get { return repUser; } }
-
-        /*public IntegTestsUserService()//(WebApplicationFactory<Startup> factory)
+        public IntegTestsUser()
         {
-             this._factory = new WebApplicationFactory<Startup>().WithWebHostBuilder(builder =>
-             {
-                 builder.ConfigureTestServices(services =>
-                 {
-                     services.AddDbContext<mbti_dbContext>(opt => opt.UseInMemoryDatabase("mydb"));
-
-                     services.AddScoped<IRepositoryUser, RepositoryUser>();
-                     services.AddScoped<IRepositoryType, RepositoryType>();
-                     services.AddScoped<IRepositoryCharacter, RepositoryCharacter>();
-
-                     services.AddScoped<IUserService, UserService>();
-                     services.AddScoped<ITypeService, TypeService>();
-                     services.AddScoped<ICharacterService, CharacterService>();
-
-                     services.AddAutoMapper(typeof(UserProfile));
-                     services.AddAutoMapper(typeof(TypeProfile));
-                     services.AddAutoMapper(typeof(CharacterProfile));
-
-                     var provider = services.BuildServiceProvider();
-                     this.userService = provider.GetRequiredService<IUserService>();
-                 });
-             });
-            //_factory = factory;
-        }*/
-
-        private readonly WebApplicationFactory<mbti_web.Startup> _factory;
-
-        public IntegTestsUser(WebApplicationFactory<mbti_web.Startup> factory)
-        {
-            _factory = factory;
-        }
-
-        /*public IntegTestsUserService()
-        {
-            dbContext = new mbti_dbContext(new DbContextOptions<mbti_dbContext>());
-
-            repUser = new RepositoryUser(dbContext);
-            repType = new RepositoryType(dbContext);
-            repCharacter = new RepositoryCharacter(dbContext);
-
-            ClearTestDb();
-        }
-
-        private void ClearTestDb()
-        {
-            foreach (var record in repUser.GetAll())
-            {
-                repUser.Remove(record);
-            }
-
-            foreach (var record in repType.GetAll())
-            {
-                repType.Remove(record);
-            }
-
-            foreach (var record in repCharacter.GetAll())
-            {
-                repCharacter.Remove(record);
-            }
-        }
-        public void Dispose()
-        {
-            ClearTestDb();
-            dbContext.Dispose();
-        }*/
-
-        /*[AllureXunitTheory]
-        [AutoMoqData]
-        public void TestAddAndGetUser(User _user)
-        {
-            // Arrange
-            User user = new User(_user.Useruk, _user.Login, _user.Password, _user.Nickname,
-                                                    _user.Email, _user.Telagram, _user.Typeuk, _user.Dateofbirth);
-
-
-            var userService = new UserService(this.repUser, null, null);
-            sut.Add(user);
-
-            // Act
-            var userModel = userService.GetByLogin(user.Login);
-
-            // Act
-            Assert.Equal(user.Login, userModel.Login);
+            var _server = new TestServer(new WebHostBuilder().UseStartup<TestStartup>());
+            _userService = (UserService)_server.Services.GetRequiredService<IUserService>();
         }
 
         [AllureXunit]
-        public void TestAuthorize()
-        {
-            // https://stackoverflow.com/questions/49934707/automapper-in-xunit-testing-and-net-core-2-0
-            // использовать MapperConfiguration и InMemory configuration
-
-            // Arrange
-            var inMemorySettings = new Dictionary<string, string>
-            {
-                {"Secret", "0123456789123456"}
-            };
-
-            IConfiguration configurationInMemory = new ConfigurationBuilder()
-                .AddInMemoryCollection(inMemorySettings)
-                .Build();
-            
-            var mapper = MappingProfile.InitializeAutoMapper().CreateMapper();
-            configurationInMemory.Add
-                RegisterInstance<IMapper>(mapper);
-
-            UserService userService = new UserService(new RepositoryUser(), configurationInMemory, new );
-
-            // Act
-
-            // Assert
-        }*/
-
-        [Fact]
-        public void TestRegister()
+        public void TestGetAll()
         {
             // Arrange
-            //var client = _factory.CreateClient();
-
-            IUserService s = null;
-
-            var client = _factory.WithWebHostBuilder(builder =>
-            {
-                builder.ConfigureServices(services =>
-                {
-                    services.AddDbContext<mbti_dbContext>(opt => opt.UseInMemoryDatabase("mydb"));
-
-                    var serviceProvider = services.BuildServiceProvider();
-
-                    using (var scope = serviceProvider.CreateScope())
-                    {
-                        var scopedServices = scope.ServiceProvider;
-                        s = scopedServices
-                            .GetRequiredService<IUserService>();
-                        Assert.Null(s);
-                    }
-                
-                });
-            });
-
-            //Assert.NotNull(s);
-
-
-            //var provider = services.BuildServiceProvider();
-            //var serv = provider.GetRequiredService<IUserService>();
 
             // Act
-            //var response = await client.GetAsync("/api/types");
-            //var responce = userService.GetAll();
+            List<UserModel> users = _userService.GetAll();
 
             // Assert
-            //Assert.NotNull(responce);
-            //Assert.NotNull(response);//response.EnsureSuccessStatusCode(); // Status Code 200-299
+            Assert.NotNull(users);
+        }
 
-            // с postman
-            // wireshark - для лога
+        [AllureXunitTheory]
+        [InlineData("lena", "123")]
+        public void TestAuthenticate(string _login, string _password)
+        {
+            // Arrange
+            AuthenticateRequest authRequest = new AuthenticateRequest(_login, _password);
+
+            // Act
+            AuthenticateResponse response = _userService.Authenticate(authRequest);
+
+            // Assert
+            Assert.NotNull(response);
+            Assert.NotNull(response.Token);
+            Assert.Equal(authRequest.Login, response.Login);
+        }
+
+        [AllureXunitTheory]
+        [AutoMoqData]
+        public void TestAuthenticateBadRequest(string _login, string _password)
+        {
+            // Arrange
+            AuthenticateRequest authRequest = new AuthenticateRequest(_login, _password);
+
+            // Act
+            AuthenticateResponse response = _userService.Authenticate(authRequest);
+
+            // Assert
+            Assert.Null(response);
+        }
+
+        [AllureXunitTheory]
+        [AutoMoqData]
+        public void TestRegister(string _login, string _password)
+        {
+            // Arrange
+            AuthenticateRequest regRequest = new AuthenticateRequest(_login, _password);
+
+            // Act
+            _userService.Register(regRequest);
+
+            // Assert
+        }
+
+        [AllureXunitTheory]
+        [InlineData(1)]
+        public void TestGetUserById(int _id)
+        {
+            // Arrange
+
+            // Act
+            UserModel user = _userService.GetById(_id);
+
+            // Assert
+            Assert.NotNull(user);
         }
 
         public class AutoMoqDataAttribute : AutoDataAttribute

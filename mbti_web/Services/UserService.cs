@@ -71,6 +71,10 @@ namespace mbti_web.Services
 
                 _repuser.Add(user);
             }
+            else
+            {
+                // todo: add logger
+            }
         }
         public void AddUser(UserModel userModel)
         {

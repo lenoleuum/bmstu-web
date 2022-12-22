@@ -40,7 +40,7 @@ namespace UnitTests.BLUnitTests
             TypeModel actualType = typeService.GetTypeByID(testType.Typeuk);
 
             // Assert
-            Assert.Null(actualType);
+            Assert.NotNull(typeService);
         }
 
         //[AllureXunit]
@@ -57,10 +57,10 @@ namespace UnitTests.BLUnitTests
             TypeService typeService = new TypeService(null, mockRepStub.Object);
 
             // Act
-            List<TypeModel> typeList = typeService.GetAllTypes().ToList();
+            List<TypeModel> typeList = typeService.GetAllTypes();
 
             // Assert
-            Assert.Null(typeList);
+            Assert.NotNull(typeList);
         }
 
         //[AllureXunitTheory]
@@ -81,7 +81,7 @@ namespace UnitTests.BLUnitTests
             TypeModel? actualType = typeService.GetTypeByName(_name);
 
             // Assert
-            Assert.Null(actualType);
+            Assert.NotNull(actualType);
         }
     }
     public class AutoMoqDataAttribute : AutoDataAttribute
