@@ -1,3 +1,5 @@
+\c mbti_db
+
 insert into Types(typeuk, typename, typedescription) values(2,'ENTJ','A Commander (ENTJ) is someone with the Extraverted, Intuitive, Thinking, and Judging personality traits. They are decisive people who love momentum and accomplishment. They gather information to construct their creative visions but rarely hesitate for long before acting on them.');                                  
 insert into Types(typeuk, typename, typedescription) values(3,'INTJ','An Architect (INTJ) is a person with the Introverted, Intuitive, Thinking, and Judging personality traits. These thoughtful tacticians love perfecting the details of life, applying creativity and rationality to everything they do. Their inner world is often a private, complex one.');                                
 insert into Types(typeuk, typename, typedescription) values(1,'ENTP','A Debater (ENTP) is a person with the Extraverted, Intuitive, Thinking, and Prospecting personality traits. They tend to be bold and creative, deconstructing and rebuilding ideas with great mental agility. They pursue their goals vigorously despite any resistance they might encounter.');                            
