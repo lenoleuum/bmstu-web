@@ -15,7 +15,7 @@ jobs:
       postgres:
         image: postgres:latest
         env:
-          POSTGRES_DB: mbti_dbb
+          POSTGRES_DB: mbti_db
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: 1234
           #POSTGRES_HOST: 127.0.0.1
