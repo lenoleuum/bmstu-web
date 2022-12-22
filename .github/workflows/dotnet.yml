@@ -10,6 +10,18 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        database-name:
+        - mbti_db
+        database-password:
+        - 1234
+        database-user:
+        - postgres
+        database-host:
+        - 127.0.0.1
+        database-port:
+        - 5432
     
     services:
       postgres:
