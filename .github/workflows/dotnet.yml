@@ -65,6 +65,9 @@ jobs:
     - name: Build UnitTest
       run: dotnet build --no-restore                 
       working-directory: UnitTests
+    - name: Init db
+      run: psql "sslmode=disable user=postgres hostaddr=127.0.0.1 port=5432 password=1234 dbname=mbti_db" < db_init.sql
+      working-directory: backend
     - name: UnitTest
       run: dotnet test UnitTests
       
