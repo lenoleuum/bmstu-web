@@ -42,7 +42,7 @@ namespace mbti_web
                 entity.HasKey(e => e.Characteruk)
                     .HasName("characters_pkey");
 
-                entity.ToTable("characters", "MBTI");
+                entity.ToTable("characters", "public");
 
                 entity.Property(e => e.Characteruk)
                     .ValueGeneratedNever()
@@ -71,7 +71,7 @@ namespace mbti_web
                 entity.HasKey(e => e.Typeuk)
                     .HasName("types_pkey");
 
-                entity.ToTable("types", "MBTI");
+                entity.ToTable("types", "public");
 
                 entity.HasComment("Типы личности по MBTI");
 
@@ -96,7 +96,7 @@ namespace mbti_web
                 entity.HasKey(e => e.Useruk)
                     .HasName("users_pkey");
 
-                entity.ToTable("users", "MBTI");
+                entity.ToTable("users", "public");
 
                 entity.Property(e => e.Useruk)
                     .ValueGeneratedNever()
