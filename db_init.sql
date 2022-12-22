@@ -1,3 +1,5 @@
+\c mbti_db
+
 create table Users
 (
 	UserUK int primary key,
