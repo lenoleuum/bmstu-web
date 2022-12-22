@@ -18,10 +18,8 @@ jobs:
           POSTGRES_DB: mbti_db
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: 1234
-          #POSTGRES_HOST: 127.0.0.1
           #POSTGRES_HOST: postgres
         ports:
-          #- "127.0.0.1:5432:5432"
           - 5432:5432
         options: >-
             --health-cmd pg_isready
@@ -61,19 +59,9 @@ jobs:
     - name: Restore dependencies IntegrationTests
       run: dotnet restore
       working-directory: IntegrationTests
-      env:
-        # use postgres for the host here because we have specified a container for the job.
-        # If we were running the job on the VM this would be localhost
-        POSTGRES_HOST: postgres
-        POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
     - name: Build IntegrationTests
       run: dotnet build --no-restore                 
       working-directory: IntegrationTests
-      env:
-        # use postgres for the host here because we have specified a container for the job.
-        # If we were running the job on the VM this would be localhost
-        POSTGRES_HOST: postgres
-        POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
     - name: Init db
       run: psql "sslmode=disable user=postgres hostaddr=127.0.0.1 port=5432 password=1234 dbname=mbti_db" < db_init.sql
     - name: Fill db
@@ -81,8 +69,6 @@ jobs:
     - name: IntegrationTests
       run: dotnet test IntegrationTests
       env:
-        # use postgres for the host here because we have specified a container for the job.
-        # If we were running the job on the VM this would be localhost
         POSTGRES_HOST: postgres
         POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
     - name: Clear db
@@ -97,5 +83,17 @@ jobs:
     - name: Build E2ETest
       run: dotnet build --no-restore                 
       working-directory: E2ETest
+    - name: Init db
+      run: psql "sslmode=disable user=postgres hostaddr=127.0.0.1 port=5432 password=1234 dbname=mbti_db" < db_init.sql
+    - name: Fill db
+      run: psql "sslmode=disable user=postgres hostaddr=127.0.0.1 port=5432 password=1234 dbname=mbti_db" < db_fill.sql
     - name: E2ETest
       run: dotnet test E2ETest
+      env:
+        POSTGRES_HOST: postgres
+        POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
+    - name: Clear db
+      run: psql "sslmode=disable user=postgres hostaddr=127.0.0.1 port=5432 password=1234 dbname=mbti_db" < db_clear.sql
+    - name: Drop db
+      run: psql "sslmode=disable user=postgres hostaddr=127.0.0.1 port=5432 password=1234 dbname=mbti_db" < db_drop.sql
+    
