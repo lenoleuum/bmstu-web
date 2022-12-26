@@ -1,1 +1,1 @@
-### C\# Asp .Net Core + Entity Framework (db first) + PostgreSQL
+### C\# Asp .Net Core + Entity Framework (db first) + XUnit + PostgreSQL
