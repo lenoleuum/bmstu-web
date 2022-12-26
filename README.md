@@ -37,3 +37,13 @@
 
 ## Figma
 [Click here](https://www.figma.com/file/DGEgnA22vOR1XgkMBU9P7b/mbtiworld?node-id=0%3A1)
+
+
+## Страницы приложения
+
+<img width="280" alt="login_page" src="https://user-images.githubusercontent.com/76661573/209533981-3612a03c-3473-45f7-8dec-9d99483678d0.png">
+<img width="280" alt="register_page" src="https://user-images.githubusercontent.com/76661573/209534055-222d6b11-e2b2-491f-835f-36613cefecaf.png">
+<img width="600" alt="home_test_page" src="https://user-images.githubusercontent.com/76661573/209534292-31d413da-673b-4a8f-995f-5066692e1562.png">
+<img width="600" alt="home_types_page" src="https://user-images.githubusercontent.com/76661573/209534299-fbf17f22-1492-4708-9a46-26f8b5474c55.png">
+<img width="600" alt="ho<img width="847" alt="home_characters_page" src="https://user-images.githubusercontent.com/76661573/209534172-25e167c5-1107-4a72-97d5-a8548145080f.png">
+<img width="400" alt="profile_page" src="https://user-images.githubusercontent.com/76661573/209534237-3a9f66d4-8b1a-4399-906f-299ab162eaeb.png">
